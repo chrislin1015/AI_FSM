@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ArrayOfAIData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AIData>
+		<ID>AI010001</ID>
+		<MinHP>100</MinHP>
+		<MaxHP>500</MaxHP>
+		<StateMachineID>SM010001</StateMachineID>
+		<AtkRange>1.0</AtkRange>
+		<AtkSpeed>1.0</AtkSpeed>
+		<Damage>100</Damage>
+	</AIData>
+	<AIData>
+		<ID>AI010002</ID>
+		<MinHP>100</MinHP>
+		<MaxHP>500</MaxHP>
+		<StateMachineID>SM010002</StateMachineID>
+		<AtkRange>1.0</AtkRange>
+		<AtkSpeed>1.5</AtkSpeed>
+		<Damage>200</Damage>
+	</AIData>
+</ArrayOfAIData>
