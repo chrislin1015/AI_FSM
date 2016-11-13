@@ -46,6 +46,7 @@ public class StateManager : MonoBehaviour
 
     BuildStateMachineDelegate BuildStateMachineAction;
     protected Dictionary<string, StateMachine> StateMachines = new Dictionary<string, StateMachine>();
+    protected Dictionary<string, State> States = new Dictionary<string, State>();
 
     void Awake()
     {
@@ -64,6 +65,12 @@ public class StateManager : MonoBehaviour
         if (sInstance == this)
         {
             sInstance = null;
+
+            StateMachines.Clear();
+            StateMachines = null;
+
+            States.Clear();
+            States = null;
         }
     }
 
@@ -88,5 +95,27 @@ public class StateManager : MonoBehaviour
         }
 
         return StateMachines[iID].Clone();
+    }
+
+    public State CrateState(string iStateClassName)
+    {
+        if (States.ContainsKey(iStateClassName))
+            return States[iStateClassName];
+        
+        System.Type _Type = System.Type.GetType(iStateClassName);
+        if (_Type == null)
+            return null;
+
+        State _State = (State)Activator.CreateInstance(_Type);
+        if (_State == null)
+        {
+            Debug.LogError("not have this state type : " + iStateClassName);
+        }
+        else
+        {
+            States.Add(iStateClassName, _State);
+        }
+
+        return _State;
     }
 }
