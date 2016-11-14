@@ -39,7 +39,7 @@ public class AI : MonoBehaviour
     protected StateMachine MyStateMachine = null;
     protected Dictionary<string, Attribute> Attributes = new Dictionary<string, Attribute>();
 
-    public AI(string iID, StateMachine iStateMachine)
+    /*public AI(string iID, StateMachine iStateMachine)
     {
         MyID = iID;
         MyStateMachine = iStateMachine;
@@ -47,16 +47,16 @@ public class AI : MonoBehaviour
         {
             MyStateMachine.BindAI(this);
         }
-    }
+    }*/
 
-    ~AI()
+    void OnDestroy()
     {
         MyStateMachine = null;
         Attributes.Clear();
         Attributes = null;
     }
 
-    virtual public void Update()
+    void Update()
     {
         if (MyStateMachine == null)
             return;
