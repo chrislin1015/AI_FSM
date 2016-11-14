@@ -34,6 +34,9 @@ public class MyAI : AI
         AttTemplate<int> _HPAttribute = new AttTemplate<int>(GlobalEnum.ATTRIBUTE_TYPE.HP.ToString(), AIData.MaxHP, AIData.MinHP);
         Attributes.Add(_HPAttribute.GetID(), _HPAttribute);
 
+        //Attribute _A = GetAttribute(_HPAttribute.GetID());
+        //AttTemplate<int> _AT = (AttTemplate<int>)_A;
+
         AttTemplate<float> _ATKRange = new AttTemplate<float>(GlobalEnum.ATTRIBUTE_TYPE.ATK_RANGE.ToString(), AIData.AtkRange, AIData.AtkRange);
         Attributes.Add(_ATKRange.GetID(), _ATKRange);
 
@@ -42,5 +45,14 @@ public class MyAI : AI
 
         AttTemplate<int> _Damage = new AttTemplate<int>(GlobalEnum.ATTRIBUTE_TYPE.DAMAGE.ToString(), AIData.Damage, AIData.Damage);
         Attributes.Add(_Damage.GetID(), _Damage);
+
+        AttTemplate<GlobalEnum.MILITARY_TYPE> _Military = new AttTemplate<GlobalEnum.MILITARY_TYPE>(GlobalEnum.ATTRIBUTE_TYPE.MILITARY.ToString(), (GlobalEnum.MILITARY_TYPE)AIData.Military, (GlobalEnum.MILITARY_TYPE)AIData.Military);
+        Attributes.Add(_Military.GetID(), _Military);
+
+        AttTemplate<GlobalEnum.MILITARY_TYPE> _AtkType = new AttTemplate<GlobalEnum.MILITARY_TYPE>(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString(), (GlobalEnum.MILITARY_TYPE)AIData.AtkType, (GlobalEnum.MILITARY_TYPE)AIData.AtkType);
+        Attributes.Add(_AtkType.GetID(), _AtkType);
+
+        AttTemplate<float> _MoveSpeed = new AttTemplate<float>(GlobalEnum.ATTRIBUTE_TYPE.MOVE_SPEED.ToString(), AIData.MoveSpeed, AIData.MoveSpeed);
+        Attributes.Add(_MoveSpeed.GetID(), _MoveSpeed);
     }
 }

@@ -13,6 +13,9 @@ public class AIDataCenter : object
         public float AtkRange;
         public float AtkSpeed;
         public int Damage;
+        public int Military;
+        public int AtkType;
+        public float MoveSpeed;
     }
 
     /*

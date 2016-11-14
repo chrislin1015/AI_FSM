@@ -2,20 +2,86 @@
 <ArrayOfAIData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<AIData>
 		<ID>AI010001</ID>
-		<MinHP>100</MinHP>
-		<MaxHP>500</MaxHP>
+		<MinHP>500</MinHP>
+		<MaxHP>1000</MaxHP>
 		<StateMachineID>SM010001</StateMachineID>
 		<AtkRange>1.0</AtkRange>
 		<AtkSpeed>1.0</AtkSpeed>
 		<Damage>100</Damage>
+        <Military>1</Military>
+        <AtkType>1</AtkType>
+        <MoveSpeed>1</MoveSpeed>
 	</AIData>
 	<AIData>
 		<ID>AI010002</ID>
-		<MinHP>100</MinHP>
-		<MaxHP>500</MaxHP>
+		<MinHP>400</MinHP>
+		<MaxHP>800</MaxHP>
 		<StateMachineID>SM010002</StateMachineID>
 		<AtkRange>1.0</AtkRange>
-		<AtkSpeed>1.5</AtkSpeed>
-		<Damage>200</Damage>
+		<AtkSpeed>1.3</AtkSpeed>
+		<Damage>180</Damage>
+        <Military>1</Military>
+        <AtkType>3</AtkType>
+        <MoveSpeed>1</MoveSpeed>
 	</AIData>
+    <AIData>
+        <ID>AI020001</ID>
+        <MinHP>50</MinHP>
+        <MaxHP>250</MaxHP>
+        <StateMachineID>SM020001</StateMachineID>
+        <AtkRange>1.0</AtkRange>
+        <AtkSpeed>0.7</AtkSpeed>
+        <Damage>50</Damage>
+        <Military>1</Military>
+        <AtkType>1</AtkType>
+        <MoveSpeed>1.5</MoveSpeed>
+    </AIData>
+    <AIData>
+        <ID>AI020002</ID>
+        <MinHP>50</MinHP>
+        <MaxHP>250</MaxHP>
+        <StateMachineID>SM020001</StateMachineID>
+        <AtkRange>1.0</AtkRange>
+        <AtkSpeed>0.7</AtkSpeed>
+        <Damage>50</Damage>
+        <Military>1</Military>
+        <AtkType>1</AtkType>
+        <MoveSpeed>1.5</MoveSpeed>
+    </AIData>
+    <AIData>
+        <ID>AI020003</ID>
+        <MinHP>50</MinHP>
+        <MaxHP>250</MaxHP>
+        <StateMachineID>SM020001</StateMachineID>
+        <AtkRange>1.0</AtkRange>
+        <AtkSpeed>0.7</AtkSpeed>
+        <Damage>50</Damage>
+        <Military>1</Military>
+        <AtkType>1</AtkType>
+        <MoveSpeed>1.5</MoveSpeed>
+    </AIData>
+    <AIData>
+        <ID>AI020004</ID>
+        <MinHP>50</MinHP>
+        <MaxHP>250</MaxHP>
+        <StateMachineID>SM020001</StateMachineID>
+        <AtkRange>1.0</AtkRange>
+        <AtkSpeed>0.7</AtkSpeed>
+        <Damage>50</Damage>
+        <Military>1</Military>
+        <AtkType>1</AtkType>
+        <MoveSpeed>1.5</MoveSpeed>
+    </AIData>
+    <AIData>
+        <ID>AI020005</ID>
+        <MinHP>800</MinHP>
+        <MaxHP>1200</MaxHP>
+        <StateMachineID>SM020002</StateMachineID>
+        <AtkRange>2.5</AtkRange>
+        <AtkSpeed>1.8</AtkSpeed>
+        <Damage>300</Damage>
+        <Military>2</Military>
+        <AtkType>3</AtkType>
+        <MoveSpeed>0.7</MoveSpeed>
+    </AIData>
 </ArrayOfAIData>
