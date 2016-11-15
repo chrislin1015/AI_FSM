@@ -8,19 +8,27 @@ public class IdleState : State
 		StateID = "IdleState";
 	}
 
-	virtual public void PreUpdate(AI iAI)
+    override public void PreUpdate(AI iAI)
 	{
 	}
 
-	virtual public void Update(AI iAI)
+    override public void Update(AI iAI)
 	{
         if (iAI == null)
             return;
 
-        //AIManager.Instance.SearchTarget(iAI.transform, 
+        MyAI _AI = iAI as MyAI;
+        if (_AI == null)
+            return;
+        
+        _AI.SearchTarget();
+        if (_AI.TargetAI != null)
+        {
+            _AI.ChangeState("MoveState");
+        }
 	}
 
-	virtual public void PostUpdate(AI iAI)
+    override public void PostUpdate(AI iAI)
 	{
 	}
 }
