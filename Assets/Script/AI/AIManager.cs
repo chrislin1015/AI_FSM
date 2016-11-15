@@ -1,4 +1,28 @@
-﻿using UnityEngine;
+﻿/*
+ * MIT License
+ * 
+ * Copyright (c) [2016] [Chris Lin]
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,7 +35,7 @@ public class AIManager : MonoBehaviour
 
     }
 
-    protected Dictionary<GlobalEnum.MILITARY_TYPE, List<AI>> AIs = new Dictionary<GlobalEnum.MILITARY_TYPE, List<AI>>();
+    protected Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>> AIs = new Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>>();
 
     void Awake()
     {
@@ -36,7 +60,7 @@ public class AIManager : MonoBehaviour
         AIs = null;
     }
 
-    public void RegisterAI(AI iAI, GlobalEnum.MILITARY_TYPE iType)
+    public void RegisterAI(MyAI iAI, GlobalEnum.MILITARY_TYPE iType)
     {
         if (iAI == null)
             return;
@@ -50,7 +74,7 @@ public class AIManager : MonoBehaviour
         }
         else
         {
-            List<AI> _NewTypeAIList = new List<AI>();
+            List<MyAI> _NewTypeAIList = new List<MyAI>();
             if (_NewTypeAIList == null)
                 return;
 
@@ -59,43 +83,13 @@ public class AIManager : MonoBehaviour
         }
     }
 
-    public AI SearchTarget(Transform iSource, GlobalEnum.MILITARY_TYPE iType)
+    public List<MyAI> GetAIListByMilitary(GlobalEnum.MILITARY_TYPE iType)
     {
-        float _Range = float.MaxValue;
-        AI _AI = null;
-        
-        if ((iType & GlobalEnum.MILITARY_TYPE.ARMY) != 0)
+        if (AIs.ContainsKey(iType))
         {
-            if (AIs.ContainsKey(GlobalEnum.MILITARY_TYPE.ARMY))
-            {
-                foreach (AI _Temp in AIs[GlobalEnum.MILITARY_TYPE.ARMY])
-                {
-                    Vector3 _V = iSource.position - _Temp.transform.position;
-                    if (_V.magnitude <= _Range)
-                    {
-                        _Range = _V.magnitude;
-                        _AI = _Temp;
-                    }
-                }
-            }
+            return AIs[iType];
         }
 
-        if ((iType & GlobalEnum.MILITARY_TYPE.AIRFORCE) != 0)
-        {
-            if (AIs.ContainsKey(GlobalEnum.MILITARY_TYPE.AIRFORCE))
-            {
-                foreach (AI _Temp in AIs[GlobalEnum.MILITARY_TYPE.AIRFORCE])
-                {
-                    Vector3 _V = iSource.position - _Temp.transform.position;
-                    if (_V.magnitude <= _Range)
-                    {
-                        _Range = _V.magnitude;
-                        _AI = _Temp;
-                    }
-                }
-            }
-        }
-
-        return _AI;
+        return null;
     }
 }
