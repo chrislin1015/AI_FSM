@@ -25,6 +25,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class MyAI : AI 
 {
@@ -34,10 +35,14 @@ public class MyAI : AI
         get { return AIData; }
     }
 
+    public string InitialStateID;
+    public GameObject Projectile;
     [HideInInspector]
     public MyAI TargetAI;
 
     public List<MyAI> ObserverList = new List<MyAI>(); 
+    protected Dictionary<string, string> Animations = new Dictionary<string, string>();
+
 
 	// Use this for initialization
 	void Awake() 
@@ -49,12 +54,17 @@ public class MyAI : AI
             MyStateMachine.BindAI(this);
         }
         CreateAttribute();
+        StateMappingAnimation();
+        ChangeState(InitialStateID);
 	}
 
     void OnDestroy()
     {
         ObserverList.Clear();
         ObserverList = null;
+
+        Animations.Clear();
+        Animations = null;
     }
 
     void Update()
@@ -92,6 +102,48 @@ public class MyAI : AI
         Attributes.Add(_MoveSpeed.GetID(), _MoveSpeed);
     }
 
+    void StateMappingAnimation()
+    {
+        if (AIData == null)
+            return;
+
+
+        StateMappingAnimation(AIData.StateAnimation1);
+        StateMappingAnimation(AIData.StateAnimation2);
+        StateMappingAnimation(AIData.StateAnimation3);
+        StateMappingAnimation(AIData.StateAnimation4);
+        StateMappingAnimation(AIData.StateAnimation5);
+        StateMappingAnimation(AIData.StateAnimation6);
+        StateMappingAnimation(AIData.StateAnimation7);
+        StateMappingAnimation(AIData.StateAnimation8);
+        StateMappingAnimation(AIData.StateAnimation9);
+        StateMappingAnimation(AIData.StateAnimation10);
+    }
+
+    void StateMappingAnimation(string iData)
+    {
+        if (iData.Equals("None"))
+            return;
+
+        string[] _Separators = {",", ".", "!", "?", ";", ":", " "};
+        string[] _Separats = iData.Split(_Separators, StringSplitOptions.RemoveEmptyEntries);
+        if (_Separats == null || _Separats.Length <= 0)
+            return;
+
+        Animations.Add(_Separats[0], _Separats[1]);
+    }
+
+    override public void PlayAnimaiton(string iID)
+    {
+        if (Ani == null)
+            return;
+
+        if (Animations.ContainsKey(iID) == false)
+            return;
+
+        Ani.CrossFade(Animations[iID]);
+    }
+
     public void SetObserver(MyAI iObserver)
     {
         if (iObserver == null)
@@ -115,6 +167,25 @@ public class MyAI : AI
             }
 
             ChangeState("DeathState");
+        }
+    }
+
+    public void AtkTarget(MyAI iTarget, int iDamage)
+    {
+        if (iTarget == null)
+            return;
+
+        if (AIData.AtkMode == 0)
+        {
+            iTarget.Damage(iDamage);
+        }
+        else if (AIData.AtkMode == 1)
+        {
+            GameObject _New = Instantiate(Projectile) as GameObject;
+            if (_New == null)
+                return;
+
+
         }
     }
 

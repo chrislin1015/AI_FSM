@@ -16,6 +16,17 @@ public class AIDataCenter : object
         public int Military;
         public int AtkType;
         public float MoveSpeed;
+        public int AtkMode;
+        public string StateAnimation1;
+        public string StateAnimation2;
+        public string StateAnimation3;
+        public string StateAnimation4;
+        public string StateAnimation5;
+        public string StateAnimation6;
+        public string StateAnimation7;
+        public string StateAnimation8;
+        public string StateAnimation9;
+        public string StateAnimation10;
     }
 
     /*

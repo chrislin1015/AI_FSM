@@ -25,12 +25,6 @@
 using UnityEngine;
 using System.Collections;
 
-/*
- * 
- * @author Chris
- * @date 2016.11.01
- */
-
 public class Attribute : object
 {
     protected string AttributeID;
