@@ -42,7 +42,7 @@ public class MyAI : AI
 
     public List<MyAI> ObserverList = new List<MyAI>(); 
     protected Dictionary<string, string> Animations = new Dictionary<string, string>();
-
+    protected Transform ProjectPoint;
 
 	// Use this for initialization
 	void Awake() 
@@ -80,9 +80,6 @@ public class MyAI : AI
         AttTemplate<int> _HPAttribute = new AttTemplate<int>(GlobalEnum.ATTRIBUTE_TYPE.HP.ToString(), AIData.MaxHP, AIData.MinHP);
         Attributes.Add(_HPAttribute.GetID(), _HPAttribute);
 
-        //Attribute _A = GetAttribute(_HPAttribute.GetID());
-        //AttTemplate<int> _AT = (AttTemplate<int>)_A;
-
         AttTemplate<float> _ATKRange = new AttTemplate<float>(GlobalEnum.ATTRIBUTE_TYPE.ATK_RANGE.ToString(), AIData.AtkRange, AIData.AtkRange);
         Attributes.Add(_ATKRange.GetID(), _ATKRange);
 
@@ -100,13 +97,15 @@ public class MyAI : AI
 
         AttTemplate<float> _MoveSpeed = new AttTemplate<float>(GlobalEnum.ATTRIBUTE_TYPE.MOVE_SPEED.ToString(), AIData.MoveSpeed, AIData.MoveSpeed);
         Attributes.Add(_MoveSpeed.GetID(), _MoveSpeed);
+
+        AttTemplate<int> _AtkMode = new AttTemplate<int>(GlobalEnum.ATTRIBUTE_TYPE.ATK_MODE.ToString(), AIData.AtkMode, AIData.AtkMode);
+        Attributes.Add(_AtkMode.GetID(), _AtkMode);
     }
 
     void StateMappingAnimation()
     {
         if (AIData == null)
             return;
-
 
         StateMappingAnimation(AIData.StateAnimation1);
         StateMappingAnimation(AIData.StateAnimation2);
@@ -168,6 +167,16 @@ public class MyAI : AI
 
             ChangeState("DeathState");
         }
+    }
+
+    public void Shoot()
+    {
+        if (Projectile == null || ProjectPoint == null)
+            return;
+
+        GameObject _New = Instantiate(Projectile, ProjectPoint.position, Quaternion.identity) as GameObject;
+        if (_New == null)
+            return;
     }
 
     public void AtkTarget(MyAI iTarget, int iDamage)

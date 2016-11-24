@@ -29,9 +29,25 @@ public class GlobalEnum : MonoBehaviour
 {
     public enum MILITARY_TYPE
     {
+        ARMY,
+        AIRFORCE,
+        BUILDING,
+        MAX
+    }
+
+    public enum ATK_MODE
+    {
+        MELEE,  //近戰
+        SHOOT,  //遠程攻擊   
+        MAX
+    }
+
+    public enum ATK_TYPE
+    {
         NONE = 0,
         ARMY = 1, 
         AIRFORCE = 2,
+        BUILDING = 4,
         MAX
     }
 
@@ -44,6 +60,7 @@ public class GlobalEnum : MonoBehaviour
         MILITARY,
         ATK_TYPE,
         MOVE_SPEED,
+        ATK_MODE,
         MAX
     }
 }

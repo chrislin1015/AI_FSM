@@ -27,7 +27,7 @@ using System.Collections;
 
 public class MoveState : State 
 {
-    MoveState()
+    public MoveState()
     {
         StateID = "MoveState";
     }

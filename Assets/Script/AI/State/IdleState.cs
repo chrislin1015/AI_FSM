@@ -27,7 +27,7 @@ using System.Collections;
 
 public class IdleState : State 
 {
-	IdleState()
+	public IdleState()
 	{
 		StateID = "IdleState";
 	}

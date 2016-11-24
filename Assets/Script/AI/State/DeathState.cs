@@ -27,7 +27,7 @@ using System.Collections;
 
 public class DeathState : State 
 {
-    DeathState()
+    public DeathState()
     {
         StateID = "DeathState";
     }

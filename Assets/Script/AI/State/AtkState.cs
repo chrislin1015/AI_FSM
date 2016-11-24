@@ -27,7 +27,7 @@ using System.Collections;
 
 public class AtkState : State 
 {
-    AtkState()
+    public AtkState()
     {
         StateID = "AtkState";
     }
@@ -38,11 +38,25 @@ public class AtkState : State
         if (_AI == null)
             return;
 
+        if (_AI.TargetAI == null)
+            return;
+
+        AttTemplate<int> _AtkMode = (AttTemplate<int>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_MODE.ToString());
+        if (_AtkMode == null)
+            return;
+
         AttTemplate<int> _Damage = (AttTemplate<int>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.DAMAGE.ToString());
         if (_Damage == null)
             return;
-        
-        _AI.Damage(_Damage.Current);
+
+        if (_AtkMode.Current == (int)GlobalEnum.ATK_MODE.MELEE)
+        {
+            _AI.TargetAI.Damage(_Damage.Current);
+        }
+        else
+        {
+            _AI.Shoot();
+        }
     }
 
     override public void Update(AI iAI)

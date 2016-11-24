@@ -27,14 +27,6 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-/*
- * 
- * @author Chris
- * @date 2014.06.01
- */
-
-
-
 public class StateManager : MonoBehaviour 
 {
     static protected StateManager sInstance;

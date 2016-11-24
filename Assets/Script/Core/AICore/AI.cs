@@ -26,12 +26,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/*
- * 
- * @author Chris
- * @date 2016.11.01
- */
-
 public class AI : MonoBehaviour 
 {
     public Animation Ani; 

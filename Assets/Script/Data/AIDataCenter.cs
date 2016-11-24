@@ -6,16 +6,27 @@ public class AIDataCenter : object
 {
     public class AIData : object
     {
+        //單位的ID
         public string ID;
+        //HP最小值
         public int MinHP;
+        //HP最大值
         public int MaxHP;
+        //狀態機ID
         public string StateMachineID;
+        //攻擊範圍
         public float AtkRange;
+        //攻擊速度
         public float AtkSpeed;
+        //攻擊力
         public int Damage;
+        //軍種，0 = 地面單位，1 = 空中單位，2 = 建築物
         public int Military;
+        //攻擊類型，1 = 地面部隊，2 = 空中部隊，4 = 建築物。用位元印射法對應如果要全部單位都可以打，就要設定為1+2+4=7
         public int AtkType;
+        //移動速度
         public float MoveSpeed;
+        //攻擊模式，0 = 一般攻擊，1 = 遠程投射
         public int AtkMode;
         public string StateAnimation1;
         public string StateAnimation2;

@@ -27,7 +27,7 @@ using System.Collections;
 
 public class PrepareAtkState : State 
 {
-    PrepareAtkState()
+    public PrepareAtkState()
     {
         StateID = "PrepareAtkState";
     }

@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 public class Generator : MonoBehaviour 
 {
-    [SerializeField]
+    [System.Serializable]
     public class GeneratorInfo
     {
         public GameObject AISource;
@@ -62,6 +62,7 @@ public class Generator : MonoBehaviour
                         break;
                     }
                 }
+                _Rate += _Info.Percent;
             }
 
             yield return null;
