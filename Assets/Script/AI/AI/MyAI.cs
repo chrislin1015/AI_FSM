@@ -42,7 +42,18 @@ public class MyAI : AI
 
     public List<MyAI> ObserverList = new List<MyAI>(); 
     protected Dictionary<string, string> Animations = new Dictionary<string, string>();
-    protected Transform ProjectPoint;
+
+    protected Transform mProjectPoint;
+    public Transform ProjectPoint
+    {
+        get { return mProjectPoint; }
+    }
+
+    protected Transform mHitPoint;
+    public Transform HitPoint
+    {
+        get { return mHitPoint; }
+    }
 
 	// Use this for initialization
 	void Awake() 
@@ -174,9 +185,15 @@ public class MyAI : AI
         if (Projectile == null || ProjectPoint == null)
             return;
 
-        GameObject _New = Instantiate(Projectile, ProjectPoint.position, Quaternion.identity) as GameObject;
+        GameObject _New = Instantiate(Projectile) as GameObject;
         if (_New == null)
             return;
+
+        Projectile _Proj = _New.GetComponent<Projectile>();
+        if (_Proj == null)
+            return;
+
+        _Proj.Initial(this, this.TargetAI);
     }
 
     public void AtkTarget(MyAI iTarget, int iDamage)
