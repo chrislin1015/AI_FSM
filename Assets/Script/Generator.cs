@@ -37,10 +37,16 @@ public class Generator : MonoBehaviour
 
     public List<GeneratorInfo> GeneratorList = new List<GeneratorInfo>();
     public float GeneratorTime;
+    public GlobalEnum.CAMP_TYPE eCampType;
 
     void Start() 
     {
         StartCoroutine(GeneratorAI());
+    }
+
+    void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     IEnumerator GeneratorAI()
@@ -56,11 +62,16 @@ public class Generator : MonoBehaviour
                 if (_Random >= _Rate && _Random <= _Rate + _Info.Percent)
                 {
                     GameObject _NewAI = Instantiate(_Info.AISource) as GameObject;
-                    if (_NewAI != null)
-                    {
-                        _NewAI.transform.position = transform.position;
-                        break;
-                    }
+                    if (_NewAI == null)
+                        continue;
+                    
+                    MyAI _AI = _NewAI.GetComponent<MyAI>();
+                    if (_AI == null)
+                        continue;
+                    
+                    _NewAI.transform.position = transform.position;
+                    AIManager.Instance.RegisterAI(_AI, eCampType);
+                    break;
                 }
                 _Rate += _Info.Percent;
             }

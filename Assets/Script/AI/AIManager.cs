@@ -35,7 +35,7 @@ public class AIManager : MonoBehaviour
 
     }
 
-    protected Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>> AIs = new Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>>();
+    protected Dictionary<GlobalEnum.CAMP_TYPE, Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>>> mAIs = new Dictionary<GlobalEnum.CAMP_TYPE, Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>>>();
 
     void Awake()
     {
@@ -56,38 +56,71 @@ public class AIManager : MonoBehaviour
             sInstance = null;
         }
 
-        AIs.Clear();
-        AIs = null;
+        foreach (KeyValuePair<GlobalEnum.CAMP_TYPE, Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>>> _CampClass in mAIs)
+        {
+            foreach(KeyValuePair<GlobalEnum.MILITARY_TYPE, List<MyAI>> _MilitaryClass in _CampClass.Value)
+            {
+                for(int i = 0; i < _MilitaryClass.Value.Count; ++i)
+                {
+                    Destroy(_MilitaryClass.Value[i]);
+                }
+                _MilitaryClass.Value.Clear();
+            }
+            _CampClass.Value.Clear();
+        }
+        mAIs.Clear();
+        mAIs = null;
     }
 
-    public void RegisterAI(MyAI iAI, GlobalEnum.MILITARY_TYPE iType)
+    public void RegisterAI(MyAI iAI, GlobalEnum.CAMP_TYPE iCampType)
     {
         if (iAI == null)
             return;
 
-        if (AIs.ContainsKey(iType))
-        {
-            if (AIs[iType].Contains(iAI))
-                return;
+        iAI.Initial(iCampType);
+        GlobalEnum.MILITARY_TYPE _MilitaryType = (GlobalEnum.MILITARY_TYPE)iAI.Data.Military;
 
-            AIs[iType].Add(iAI);
+        if (mAIs.ContainsKey(iCampType))
+        {
+            if (mAIs[iCampType].ContainsKey(_MilitaryType))
+            {
+                if (mAIs[iCampType][_MilitaryType].Contains(iAI))
+                    return;
+
+                mAIs[iCampType][_MilitaryType].Add(iAI);
+            }
+            else
+            {
+                List<MyAI> _NewTypeAIList = new List<MyAI>();
+                if (_NewTypeAIList == null)
+                    return;
+
+                _NewTypeAIList.Add(iAI);
+                mAIs[iCampType].Add(_MilitaryType, _NewTypeAIList);
+            }
         }
         else
         {
+            Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>> _NewCamp = new Dictionary<GlobalEnum.MILITARY_TYPE, List<MyAI>>();
+            if (_NewCamp == null)
+                return;
+
             List<MyAI> _NewTypeAIList = new List<MyAI>();
             if (_NewTypeAIList == null)
                 return;
 
             _NewTypeAIList.Add(iAI);
-            AIs.Add(iType, _NewTypeAIList);
+            _NewCamp.Add(_MilitaryType, _NewTypeAIList);
+            mAIs.Add(iCampType, _NewCamp);
         }
     }
 
-    public List<MyAI> GetAIListByMilitary(GlobalEnum.MILITARY_TYPE iType)
+    public List<MyAI> GetAIListByMilitary(GlobalEnum.CAMP_TYPE iCampType, GlobalEnum.MILITARY_TYPE iMilitaryType)
     {
-        if (AIs.ContainsKey(iType))
+        if (mAIs.ContainsKey(iCampType) &&
+            mAIs[iCampType].ContainsKey(iMilitaryType))
         {
-            return AIs[iType];
+            return mAIs[iCampType][iMilitaryType];
         }
 
         return null;

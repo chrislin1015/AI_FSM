@@ -8,6 +8,7 @@ public class AIDataCenter : object
     {
         //單位的ID
         public string ID;
+        public int Type;
         //HP最小值
         public int MinHP;
         //HP最大值

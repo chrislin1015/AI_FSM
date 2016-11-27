@@ -55,8 +55,15 @@ public class MyAI : AI
         get { return mHitPoint; }
     }
 
+    protected GlobalEnum.CAMP_TYPE eCameType;
+    public GlobalEnum.CAMP_TYPE CampType
+    {
+        get { return eCameType; }
+    }
+
+
 	// Use this for initialization
-	void Awake() 
+	/*void Awake() 
     {
         AIData = AIDataCenter.Instance.GetData(MyID);
         MyStateMachine = StateManager.Instance.GetStateMachine(AIData.StateMachineID);
@@ -67,7 +74,7 @@ public class MyAI : AI
         CreateAttribute();
         StateMappingAnimation();
         ChangeState(InitialStateID);
-	}
+	}*/
 
     void OnDestroy()
     {
@@ -76,6 +83,21 @@ public class MyAI : AI
 
         Animations.Clear();
         Animations = null;
+    }
+
+    public void Initial(GlobalEnum.CAMP_TYPE iCampType)
+    {
+        eCameType = iCampType;
+
+        AIData = AIDataCenter.Instance.GetData(MyID);
+        MyStateMachine = StateManager.Instance.GetStateMachine(AIData.StateMachineID);
+        if (MyStateMachine != null)
+        {
+            MyStateMachine.BindAI(this);
+        }
+        CreateAttribute();
+        StateMappingAnimation();
+        ChangeState(InitialStateID);
     }
 
     void Update()
@@ -103,13 +125,17 @@ public class MyAI : AI
         AttTemplate<GlobalEnum.MILITARY_TYPE> _Military = new AttTemplate<GlobalEnum.MILITARY_TYPE>(GlobalEnum.ATTRIBUTE_TYPE.MILITARY.ToString(), (GlobalEnum.MILITARY_TYPE)AIData.Military, (GlobalEnum.MILITARY_TYPE)AIData.Military);
         Attributes.Add(_Military.GetID(), _Military);
 
-        AttTemplate<GlobalEnum.MILITARY_TYPE> _AtkType = new AttTemplate<GlobalEnum.MILITARY_TYPE>(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString(), (GlobalEnum.MILITARY_TYPE)AIData.AtkType, (GlobalEnum.MILITARY_TYPE)AIData.AtkType);
+        AttTemplate<GlobalEnum.ATK_TYPE> _AtkType = new AttTemplate<GlobalEnum.ATK_TYPE>(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString(), (GlobalEnum.ATK_TYPE)AIData.AtkType, (GlobalEnum.ATK_TYPE)AIData.AtkType);
         Attributes.Add(_AtkType.GetID(), _AtkType);
+
+        _AtkType = (AttTemplate<GlobalEnum.ATK_TYPE>)GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString());
+        if (_AtkType == null)
+            return;
 
         AttTemplate<float> _MoveSpeed = new AttTemplate<float>(GlobalEnum.ATTRIBUTE_TYPE.MOVE_SPEED.ToString(), AIData.MoveSpeed, AIData.MoveSpeed);
         Attributes.Add(_MoveSpeed.GetID(), _MoveSpeed);
 
-        AttTemplate<int> _AtkMode = new AttTemplate<int>(GlobalEnum.ATTRIBUTE_TYPE.ATK_MODE.ToString(), AIData.AtkMode, AIData.AtkMode);
+        AttTemplate<GlobalEnum.ATK_MODE> _AtkMode = new AttTemplate<GlobalEnum.ATK_MODE>(GlobalEnum.ATTRIBUTE_TYPE.ATK_MODE.ToString(), (GlobalEnum.ATK_MODE)AIData.AtkMode, (GlobalEnum.ATK_MODE)AIData.AtkMode);
         Attributes.Add(_AtkMode.GetID(), _AtkMode);
     }
 
@@ -137,7 +163,7 @@ public class MyAI : AI
 
         string[] _Separators = {",", ".", "!", "?", ";", ":", " "};
         string[] _Separats = iData.Split(_Separators, StringSplitOptions.RemoveEmptyEntries);
-        if (_Separats == null || _Separats.Length <= 0)
+        if (_Separats == null || _Separats.Length <= 1)
             return;
 
         Animations.Add(_Separats[0], _Separats[1]);
@@ -220,7 +246,7 @@ public class MyAI : AI
         float _Range = float.MaxValue;
         MyAI _AI = null;
 
-        AttTemplate<int> _AtkType = (AttTemplate<int>)GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString());
+        AttTemplate<GlobalEnum.ATK_TYPE> _AtkType = (AttTemplate<GlobalEnum.ATK_TYPE>)GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString());
         if (_AtkType == null)
             return;
 
@@ -228,12 +254,12 @@ public class MyAI : AI
         
         if ((_TargetType & GlobalEnum.MILITARY_TYPE.ARMY) != 0)
         {
-            _AI = GetNearestAI(GlobalEnum.MILITARY_TYPE.ARMY, ref _Range);
+            _AI = GetNearestAI(eCameType, GlobalEnum.MILITARY_TYPE.ARMY, ref _Range);
         }
 
         if ((_TargetType & GlobalEnum.MILITARY_TYPE.AIRFORCE) != 0)
         {
-            _AI = GetNearestAI(GlobalEnum.MILITARY_TYPE.AIRFORCE, ref _Range);
+            _AI = GetNearestAI(eCameType, GlobalEnum.MILITARY_TYPE.AIRFORCE, ref _Range);
         }
 
         if (_AI != null)
@@ -243,9 +269,9 @@ public class MyAI : AI
         }
     }
 
-    protected MyAI GetNearestAI(GlobalEnum.MILITARY_TYPE iType, ref float iDist)
+    protected MyAI GetNearestAI(GlobalEnum.CAMP_TYPE iCampType, GlobalEnum.MILITARY_TYPE iMilitaryType, ref float iDist)
     {
-        List<MyAI> _AIList = AIManager.Instance.GetAIListByMilitary(iType);
+        List<MyAI> _AIList = AIManager.Instance.GetAIListByMilitary(iCampType, iMilitaryType);
         if (_AIList == null)
             return null;
         

@@ -13,11 +13,11 @@
 		<AtkType>1</AtkType>
 		<MoveSpeed>1</MoveSpeed>
 		<AtkMode>0</AtkMode>
-		<StateAnimation1>IdleState</StateAnimation1>
-		<StateAnimation2>AtkState</StateAnimation2>
-		<StateAnimation3>PrepareAtkState</StateAnimation3>
-		<StateAnimation4>MoveState</StateAnimation4>
-		<StateAnimation5>DeathState</StateAnimation5>
+		<StateAnimation1>IdleState,Wait</StateAnimation1>
+		<StateAnimation2>AtkState,Attack</StateAnimation2>
+		<StateAnimation3>PrepareAtkState,Wait</StateAnimation3>
+		<StateAnimation4>MoveState,Walk</StateAnimation4>
+		<StateAnimation5>DeathState,Dead</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>
@@ -37,11 +37,11 @@
 		<AtkType>3</AtkType>
 		<MoveSpeed>1</MoveSpeed>
 		<AtkMode>1</AtkMode>
-		<StateAnimation1>IdleState</StateAnimation1>
-		<StateAnimation2>AtkState</StateAnimation2>
-		<StateAnimation3>PrepareAtkState</StateAnimation3>
-		<StateAnimation4>MoveState</StateAnimation4>
-		<StateAnimation5>DeathState</StateAnimation5>
+		<StateAnimation1>IdleState,Witch_Wait</StateAnimation1>
+		<StateAnimation2>AtkState,Witch_Attack</StateAnimation2>
+		<StateAnimation3>PrepareAtkState,Witch_Wait</StateAnimation3>
+		<StateAnimation4>MoveState,Witch_Walk</StateAnimation4>
+		<StateAnimation5>DeathState,Witch_Dead</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>
@@ -61,11 +61,11 @@
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
-		<StateAnimation1>IdleState</StateAnimation1>
-		<StateAnimation2>AtkState</StateAnimation2>
-		<StateAnimation3>PrepareAtkState</StateAnimation3>
-		<StateAnimation4>MoveState</StateAnimation4>
-		<StateAnimation5>DeathState</StateAnimation5>
+		<StateAnimation1>IdleState,Wait</StateAnimation1>
+		<StateAnimation2>AtkState,Attack</StateAnimation2>
+		<StateAnimation3>PrepareAtkState,Wait</StateAnimation3>
+		<StateAnimation4>MoveState,Walk</StateAnimation4>
+		<StateAnimation5>DeathState,Dead</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>
@@ -85,11 +85,11 @@
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
-		<StateAnimation1>IdleState</StateAnimation1>
-		<StateAnimation2>AtkState</StateAnimation2>
-		<StateAnimation3>PrepareAtkState</StateAnimation3>
-		<StateAnimation4>MoveState</StateAnimation4>
-		<StateAnimation5>DeathState</StateAnimation5>
+		<StateAnimation1>IdleState,Wait</StateAnimation1>
+		<StateAnimation2>AtkState,Attack</StateAnimation2>
+		<StateAnimation3>PrepareAtkState,Wait</StateAnimation3>
+		<StateAnimation4>MoveState,Walk</StateAnimation4>
+		<StateAnimation5>DeathState,Dead</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>
@@ -109,11 +109,11 @@
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
-		<StateAnimation1>IdleState</StateAnimation1>
-		<StateAnimation2>AtkState</StateAnimation2>
-		<StateAnimation3>PrepareAtkState</StateAnimation3>
-		<StateAnimation4>MoveState</StateAnimation4>
-		<StateAnimation5>DeathState</StateAnimation5>
+		<StateAnimation1>IdleState,Wait</StateAnimation1>
+		<StateAnimation2>AtkState,Attack</StateAnimation2>
+		<StateAnimation3>PrepareAtkState,Wait</StateAnimation3>
+		<StateAnimation4>MoveState,Walk</StateAnimation4>
+		<StateAnimation5>DeathState,Dead</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>
@@ -133,11 +133,11 @@
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
-		<StateAnimation1>IdleState</StateAnimation1>
-		<StateAnimation2>AtkState</StateAnimation2>
-		<StateAnimation3>PrepareAtkState</StateAnimation3>
-		<StateAnimation4>MoveState</StateAnimation4>
-		<StateAnimation5>DeathState</StateAnimation5>
+		<StateAnimation1>IdleState,Wait</StateAnimation1>
+		<StateAnimation2>AtkState,Attack</StateAnimation2>
+		<StateAnimation3>PrepareAtkState,Wait</StateAnimation3>
+		<StateAnimation4>MoveState,Walk</StateAnimation4>
+		<StateAnimation5>DeathState,Dead</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>
@@ -157,11 +157,11 @@
 		<AtkType>3</AtkType>
 		<MoveSpeed>0.7</MoveSpeed>
 		<AtkMode>0</AtkMode>
-		<StateAnimation1>IdleState</StateAnimation1>
-		<StateAnimation2>AtkState</StateAnimation2>
-		<StateAnimation3>PrepareAtkState</StateAnimation3>
-		<StateAnimation4>MoveState</StateAnimation4>
-		<StateAnimation5>DeathState</StateAnimation5>
+		<StateAnimation1>IdleState,Dragon_Wait</StateAnimation1>
+		<StateAnimation2>AtkState,Dragon_Attack</StateAnimation2>
+		<StateAnimation3>PrepareAtkState,Dragon_Wait</StateAnimation3>
+		<StateAnimation4>MoveState,Dragon_Walk</StateAnimation4>
+		<StateAnimation5>DeathState,Dragon_Dead</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>

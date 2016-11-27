@@ -85,15 +85,15 @@ public class GameSystem : MonoBehaviour
             }
 
             _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State1ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State2ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State3ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State4ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State5ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State6ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State7ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State8ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State9ID));
-            _StateMachine.AddState(_KV.Value.State1ID, StateManager.Instance.CrateState(_KV.Value.State10ID));
+            _StateMachine.AddState(_KV.Value.State2ID, StateManager.Instance.CrateState(_KV.Value.State2ID));
+            _StateMachine.AddState(_KV.Value.State3ID, StateManager.Instance.CrateState(_KV.Value.State3ID));
+            _StateMachine.AddState(_KV.Value.State4ID, StateManager.Instance.CrateState(_KV.Value.State4ID));
+            _StateMachine.AddState(_KV.Value.State5ID, StateManager.Instance.CrateState(_KV.Value.State5ID));
+            _StateMachine.AddState(_KV.Value.State6ID, StateManager.Instance.CrateState(_KV.Value.State6ID));
+            _StateMachine.AddState(_KV.Value.State7ID, StateManager.Instance.CrateState(_KV.Value.State7ID));
+            _StateMachine.AddState(_KV.Value.State8ID, StateManager.Instance.CrateState(_KV.Value.State8ID));
+            _StateMachine.AddState(_KV.Value.State9ID, StateManager.Instance.CrateState(_KV.Value.State9ID));
+            _StateMachine.AddState(_KV.Value.State10ID, StateManager.Instance.CrateState(_KV.Value.State10ID));
 
             _StateMachines.Add(_KV.Value.ID, _StateMachine);
         }

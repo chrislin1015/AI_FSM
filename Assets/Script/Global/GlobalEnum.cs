@@ -51,6 +51,13 @@ public class GlobalEnum : MonoBehaviour
         MAX
     }
 
+    public enum CAMP_TYPE
+    {
+        PLAYER,
+        ENEMY,
+        MAX,
+    }
+
     public enum ATTRIBUTE_TYPE
     {
         HP,

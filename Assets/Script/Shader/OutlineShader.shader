@@ -1,9 +1,31 @@
-﻿Shader "Moregeek/Silhouetted Diffuse" 
+﻿//MIT License
+
+//Copyright (c) [2016] [Chris Lin]
+
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
+Shader "Chris/Silhouetted Diffuse" 
 {
     Properties 
     {
-        _Color ("Main Color", Color) = (.5,.5,.5,1)
-        _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+        _Color ("Main Color", Color) = (0.5, 0.5, 0.5, 1.0)
+        _OutlineColor ("Outline Color", Color) = (0.0, 0.0 , 0.0, 1.0)
         _Outline ("Outline width", Range (0.002, 0.1)) = 0.005
         _MainTex ("Base (RGB)", 2D) = "white" { }
     }
@@ -32,10 +54,10 @@
         v2f o;
         o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 
-        float3 norm   = mul ((float3x3)UNITY_MATRIX_MVP, v.normal);
+        float3 norm   = mul((float3x3)UNITY_MATRIX_MVP, v.normal);
         float2 offset = TransformViewToProjection(norm.xy);
 
-        o.pos.xy += offset * _Outline * o.pos.z / o.pos.w;// * 0.1f;
+        o.pos.xy += offset * _Outline * o.pos.z / o.pos.w;
         o.color = _OutlineColor;
         return o;
     }
@@ -58,8 +80,7 @@
         void surf (Input IN, inout SurfaceOutput o)
         {
             fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-            //o.Albedo = c.rgb;
-            o.Emission = c.rgb;
+            o.Albedo = c.rgb;
             o.Alpha = c.a;
         }
         ENDCG
@@ -99,8 +120,7 @@
         void surf (Input IN, inout SurfaceOutput o) 
         {
             fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-            //o.Albedo = c.rgb;
-            o.Emission = c.rgb;
+            o.Albedo = c.rgb;
             o.Alpha = c.a;
         }
         ENDCG
