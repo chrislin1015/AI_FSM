@@ -76,6 +76,14 @@ public class MyAI : AI
         ChangeState(InitialStateID);
 	}*/
 
+    void LateUpdate()
+    {
+        if (TargetAI != null)
+        {
+            transform.LookAt(TargetAI.transform.position);
+        }
+    }
+
     void OnDestroy()
     {
         ObserverList.Clear();
@@ -127,10 +135,6 @@ public class MyAI : AI
 
         AttTemplate<GlobalEnum.ATK_TYPE> _AtkType = new AttTemplate<GlobalEnum.ATK_TYPE>(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString(), (GlobalEnum.ATK_TYPE)AIData.AtkType, (GlobalEnum.ATK_TYPE)AIData.AtkType);
         Attributes.Add(_AtkType.GetID(), _AtkType);
-
-        _AtkType = (AttTemplate<GlobalEnum.ATK_TYPE>)GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString());
-        if (_AtkType == null)
-            return;
 
         AttTemplate<float> _MoveSpeed = new AttTemplate<float>(GlobalEnum.ATTRIBUTE_TYPE.MOVE_SPEED.ToString(), AIData.MoveSpeed, AIData.MoveSpeed);
         Attributes.Add(_MoveSpeed.GetID(), _MoveSpeed);
@@ -236,8 +240,6 @@ public class MyAI : AI
             GameObject _New = Instantiate(Projectile) as GameObject;
             if (_New == null)
                 return;
-
-
         }
     }
 
@@ -250,42 +252,52 @@ public class MyAI : AI
         if (_AtkType == null)
             return;
 
-        GlobalEnum.MILITARY_TYPE _TargetType = (GlobalEnum.MILITARY_TYPE)_AtkType.Current;
-        
-        if ((_TargetType & GlobalEnum.MILITARY_TYPE.ARMY) != 0)
+        GlobalEnum.ATK_TYPE _TargetType = (GlobalEnum.ATK_TYPE)_AtkType.Current;
+
+        GlobalEnum.CAMP_TYPE _CampType;
+        if (eCameType == GlobalEnum.CAMP_TYPE.PLAYER)
+            _CampType = GlobalEnum.CAMP_TYPE.ENEMY;
+        else
+            _CampType = GlobalEnum.CAMP_TYPE.PLAYER;
+
+        TargetAI = null;
+        if ((_TargetType & GlobalEnum.ATK_TYPE.ARMY) != 0)
         {
-            _AI = GetNearestAI(eCameType, GlobalEnum.MILITARY_TYPE.ARMY, ref _Range);
+            GetNearestAI(_CampType, GlobalEnum.MILITARY_TYPE.ARMY, ref _Range);
         }
 
-        if ((_TargetType & GlobalEnum.MILITARY_TYPE.AIRFORCE) != 0)
+        if ((_TargetType & GlobalEnum.ATK_TYPE.AIRFORCE) != 0)
         {
-            _AI = GetNearestAI(eCameType, GlobalEnum.MILITARY_TYPE.AIRFORCE, ref _Range);
+            GetNearestAI(_CampType, GlobalEnum.MILITARY_TYPE.AIRFORCE, ref _Range);
         }
 
-        if (_AI != null)
+        if (TargetAI != null)
         {
-            TargetAI = _AI;
+            //TargetAI = _AI;
             TargetAI.SetObserver(this);
         }
     }
 
-    protected MyAI GetNearestAI(GlobalEnum.CAMP_TYPE iCampType, GlobalEnum.MILITARY_TYPE iMilitaryType, ref float iDist)
+    protected void GetNearestAI(GlobalEnum.CAMP_TYPE iCampType, GlobalEnum.MILITARY_TYPE iMilitaryType, ref float iDist)
     {
         List<MyAI> _AIList = AIManager.Instance.GetAIListByMilitary(iCampType, iMilitaryType);
         if (_AIList == null)
-            return null;
+            return;
         
-        MyAI _Target = null;
+        //MyAI _Target = null;
         foreach (MyAI _Temp in _AIList)
         {
+            if (_Temp == null)
+                continue;
+            
             Vector3 _V = transform.position - _Temp.transform.position;
             if (_V.magnitude <= iDist)
             {
                 iDist = _V.magnitude;
-                _Target = _Temp;
+                TargetAI = _Temp;
             }
         }
 
-        return _Target;
+        //return _Target;
     }
 }

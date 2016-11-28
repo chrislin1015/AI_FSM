@@ -47,6 +47,7 @@ public class DeathState : State
 
         if (_AI.Ani.isPlaying == false)
         {
+            AIManager.Instance.RemoveAI(_AI, _AI.CampType);
             GameObject.Destroy(_AI.gameObject);
         }
     }

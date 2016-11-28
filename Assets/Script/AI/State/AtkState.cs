@@ -41,7 +41,7 @@ public class AtkState : State
         if (_AI.TargetAI == null)
             return;
 
-        AttTemplate<int> _AtkMode = (AttTemplate<int>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_MODE.ToString());
+        AttTemplate<GlobalEnum.ATK_MODE> _AtkMode = (AttTemplate<GlobalEnum.ATK_MODE>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_MODE.ToString());
         if (_AtkMode == null)
             return;
 

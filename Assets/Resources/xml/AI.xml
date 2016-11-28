@@ -9,7 +9,7 @@
 		<AtkRange>1</AtkRange>
 		<AtkSpeed>1</AtkSpeed>
 		<Damage>100</Damage>
-		<Military>1</Military>
+		<Military>0</Military>
 		<AtkType>1</AtkType>
 		<MoveSpeed>1</MoveSpeed>
 		<AtkMode>0</AtkMode>
@@ -30,10 +30,10 @@
 		<MinHP>400</MinHP>
 		<MaxHP>800</MaxHP>
 		<StateMachineID>SM010001</StateMachineID>
-		<AtkRange>1</AtkRange>
+		<AtkRange>3</AtkRange>
 		<AtkSpeed>1.3</AtkSpeed>
 		<Damage>180</Damage>
-		<Military>1</Military>
+		<Military>0</Military>
 		<AtkType>3</AtkType>
 		<MoveSpeed>1</MoveSpeed>
 		<AtkMode>1</AtkMode>
@@ -53,11 +53,11 @@
 		<Type>0</Type>
 		<MinHP>50</MinHP>
 		<MaxHP>250</MaxHP>
-		<StateMachineID>SM020001</StateMachineID>
+		<StateMachineID>SM010001</StateMachineID>
 		<AtkRange>1</AtkRange>
 		<AtkSpeed>0.7</AtkSpeed>
 		<Damage>50</Damage>
-		<Military>1</Military>
+		<Military>0</Military>
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
@@ -77,11 +77,11 @@
 		<Type>0</Type>
 		<MinHP>50</MinHP>
 		<MaxHP>250</MaxHP>
-		<StateMachineID>SM020001</StateMachineID>
+		<StateMachineID>SM010001</StateMachineID>
 		<AtkRange>1</AtkRange>
 		<AtkSpeed>0.7</AtkSpeed>
 		<Damage>50</Damage>
-		<Military>1</Military>
+		<Military>0</Military>
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
@@ -101,11 +101,11 @@
 		<Type>0</Type>
 		<MinHP>50</MinHP>
 		<MaxHP>250</MaxHP>
-		<StateMachineID>SM020001</StateMachineID>
+		<StateMachineID>SM010001</StateMachineID>
 		<AtkRange>1</AtkRange>
 		<AtkSpeed>0.7</AtkSpeed>
 		<Damage>50</Damage>
-		<Military>1</Military>
+		<Military>0</Military>
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
@@ -125,11 +125,11 @@
 		<Type>0</Type>
 		<MinHP>50</MinHP>
 		<MaxHP>250</MaxHP>
-		<StateMachineID>SM020001</StateMachineID>
+		<StateMachineID>SM010001</StateMachineID>
 		<AtkRange>1</AtkRange>
 		<AtkSpeed>0.7</AtkSpeed>
 		<Damage>50</Damage>
-		<Military>1</Military>
+		<Military>0</Military>
 		<AtkType>1</AtkType>
 		<MoveSpeed>1.5</MoveSpeed>
 		<AtkMode>0</AtkMode>
@@ -149,43 +149,19 @@
 		<Type>1</Type>
 		<MinHP>800</MinHP>
 		<MaxHP>1200</MaxHP>
-		<StateMachineID>SM020002</StateMachineID>
+		<StateMachineID>SM010001</StateMachineID>
 		<AtkRange>2.5</AtkRange>
 		<AtkSpeed>1.8</AtkSpeed>
 		<Damage>300</Damage>
-		<Military>2</Military>
+		<Military>1</Military>
 		<AtkType>3</AtkType>
 		<MoveSpeed>0.7</MoveSpeed>
 		<AtkMode>0</AtkMode>
 		<StateAnimation1>IdleState,Dragon_Wait</StateAnimation1>
 		<StateAnimation2>AtkState,Dragon_Attack</StateAnimation2>
 		<StateAnimation3>PrepareAtkState,Dragon_Wait</StateAnimation3>
-		<StateAnimation4>MoveState,Dragon_Walk</StateAnimation4>
+		<StateAnimation4>MoveState,Dragon_Move</StateAnimation4>
 		<StateAnimation5>DeathState,Dragon_Dead</StateAnimation5>
-		<StateAnimation6>None</StateAnimation6>
-		<StateAnimation7>None</StateAnimation7>
-		<StateAnimation8>None</StateAnimation8>
-		<StateAnimation9>None</StateAnimation9>
-		<StateAnimation10>None</StateAnimation10>
-	</AIData>
-	<AIData>
-		<ID>AI030001</ID>
-		<Type>2</Type>
-		<MinHP>0</MinHP>
-		<MaxHP>0</MaxHP>
-		<StateMachineID>SM030001</StateMachineID>
-		<AtkRange>0</AtkRange>
-		<AtkSpeed>0</AtkSpeed>
-		<Damage>180</Damage>
-		<Military>3</Military>
-		<AtkType>3</AtkType>
-		<MoveSpeed>5</MoveSpeed>
-		<AtkMode>0</AtkMode>
-		<StateAnimation1>None</StateAnimation1>
-		<StateAnimation2>None</StateAnimation2>
-		<StateAnimation3>None</StateAnimation3>
-		<StateAnimation4>None</StateAnimation4>
-		<StateAnimation5>None</StateAnimation5>
 		<StateAnimation6>None</StateAnimation6>
 		<StateAnimation7>None</StateAnimation7>
 		<StateAnimation8>None</StateAnimation8>

@@ -83,7 +83,7 @@ public class MoveState : State
         }
         else
         {
-            iAI.transform.position += _Dir.normalized * _Speed.Current * Time.time;
+            iAI.transform.position += _Dir.normalized * _Speed.Current * Time.deltaTime;
         }
 
         return false;

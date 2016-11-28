@@ -115,6 +115,19 @@ public class AIManager : MonoBehaviour
         }
     }
 
+    public void RemoveAI(MyAI iAI, GlobalEnum.CAMP_TYPE iCampType)
+    {
+        if (iAI == null)
+            return;
+
+        GlobalEnum.MILITARY_TYPE _MilitaryType = (GlobalEnum.MILITARY_TYPE)iAI.Data.Military;
+        if (mAIs.ContainsKey(iCampType) &&
+            mAIs[iCampType].ContainsKey(_MilitaryType))
+        {
+            mAIs[iCampType][_MilitaryType].Remove(iAI);
+        }
+    }
+
     public List<MyAI> GetAIListByMilitary(GlobalEnum.CAMP_TYPE iCampType, GlobalEnum.MILITARY_TYPE iMilitaryType)
     {
         if (mAIs.ContainsKey(iCampType) &&

@@ -60,10 +60,6 @@ public class PrepareAtkState : State
             {
                 _AI.ChangeState("AtkState");
             }
-            else
-            {
-                _AI.ChangeState("IdleState");
-            }
         }
     }
 
