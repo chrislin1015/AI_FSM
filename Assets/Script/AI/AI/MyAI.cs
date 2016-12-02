@@ -40,7 +40,8 @@ public class MyAI : AI
     [HideInInspector]
     public MyAI TargetAI;
 
-    public List<MyAI> ObserverList = new List<MyAI>(); 
+    public List<MyAI> ObserverList = new List<MyAI>();
+    public Rigidbody mRigibody;
     protected Dictionary<string, string> Animations = new Dictionary<string, string>();
 
     protected Transform mProjectPoint;
@@ -75,6 +76,14 @@ public class MyAI : AI
         StateMappingAnimation();
         ChangeState(InitialStateID);
 	}*/
+
+    void FixedUpdate()
+    {
+        if (mRigibody != null)
+        {
+            mRigibody.velocity = Vector3.zero;
+        }
+    }
 
     void LateUpdate()
     {

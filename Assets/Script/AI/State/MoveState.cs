@@ -51,9 +51,13 @@ public class MoveState : State
         }
         else
         {
-            if (MoveToTarget(_AI))
+            _AI.SearchTarget();
+            if (_AI.TargetAI != null)
             {
-                _AI.ChangeState("PrepareAtkState");
+                if (MoveToTarget(_AI))
+                {
+                    _AI.ChangeState("PrepareAtkState");
+                }
             }
         }
     }
