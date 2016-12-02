@@ -41,8 +41,8 @@ public class Projectile : MonoBehaviour
         Vector3 _TargetPos = mHitPoint;
         if (mTargetAI != null)
         {
-            _TargetPos = mTargetAI.HitPoint.position;
-            mHitPoint = mTargetAI.HitPoint.position;
+            _TargetPos = mTargetAI.mHitPoint.position;
+            mHitPoint = mTargetAI.mHitPoint.position;
         }
 
         Vector3 _Temp = transform.position;
@@ -64,8 +64,8 @@ public class Projectile : MonoBehaviour
         mAIData = AIDataCenter.Instance.GetData(mID);
         mSourceAI = iSourceAI;
         mTargetAI = iTargetAI;
-        transform.position = iSourceAI.ProjectPoint.position;
-        mHitPoint = iTargetAI.HitPoint.position;
+        transform.position = iSourceAI.mProjectPoint.position;
+        mHitPoint = iTargetAI.mHitPoint.position;
 
         AttTemplate<int> _Damage = (AttTemplate<int>)mSourceAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.DAMAGE.ToString());
         if (_Damage == null)

@@ -44,38 +44,14 @@ public class MyAI : AI
     public Rigidbody mRigibody;
     protected Dictionary<string, string> Animations = new Dictionary<string, string>();
 
-    protected Transform mProjectPoint;
-    public Transform ProjectPoint
-    {
-        get { return mProjectPoint; }
-    }
-
-    protected Transform mHitPoint;
-    public Transform HitPoint
-    {
-        get { return mHitPoint; }
-    }
+    public Transform mProjectPoint;
+    public Transform mHitPoint;
 
     protected GlobalEnum.CAMP_TYPE eCameType;
     public GlobalEnum.CAMP_TYPE CampType
     {
         get { return eCameType; }
     }
-
-
-	// Use this for initialization
-	/*void Awake() 
-    {
-        AIData = AIDataCenter.Instance.GetData(MyID);
-        MyStateMachine = StateManager.Instance.GetStateMachine(AIData.StateMachineID);
-        if (MyStateMachine != null)
-        {
-            MyStateMachine.BindAI(this);
-        }
-        CreateAttribute();
-        StateMappingAnimation();
-        ChangeState(InitialStateID);
-	}*/
 
     void FixedUpdate()
     {
@@ -221,7 +197,7 @@ public class MyAI : AI
 
     public void Shoot()
     {
-        if (Projectile == null || ProjectPoint == null)
+        if (Projectile == null || mProjectPoint == null)
             return;
 
         GameObject _New = Instantiate(Projectile) as GameObject;

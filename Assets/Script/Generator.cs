@@ -38,9 +38,15 @@ public class Generator : MonoBehaviour
     public List<GeneratorInfo> GeneratorList = new List<GeneratorInfo>();
     public float GeneratorTime;
     public GlobalEnum.CAMP_TYPE eCampType;
+    public ParticleSystem GeneratorEffect;
 
     void Start() 
     {
+        if (GeneratorEffect != null)
+        {
+            GeneratorEffect.Stop();
+            GeneratorEffect.gameObject.SetActive(false);
+        }
         StartCoroutine(GeneratorAI());
     }
 
@@ -71,6 +77,12 @@ public class Generator : MonoBehaviour
                     
                     _NewAI.transform.position = transform.position;
                     AIManager.Instance.RegisterAI(_AI, eCampType);
+
+                    if (GeneratorEffect != null)
+                    {
+                        GeneratorEffect.gameObject.SetActive(true);
+                        GeneratorEffect.Play();
+                    }
                     break;
                 }
                 _Rate += _Info.Percent;
