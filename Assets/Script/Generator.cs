@@ -39,6 +39,7 @@ public class Generator : MonoBehaviour
     public float GeneratorTime;
     public GlobalEnum.CAMP_TYPE eCampType;
     public ParticleSystem GeneratorEffect;
+    protected AudioSource mAudioSource;
 
     void Start() 
     {
@@ -47,6 +48,7 @@ public class Generator : MonoBehaviour
             GeneratorEffect.Stop();
             GeneratorEffect.gameObject.SetActive(false);
         }
+        mAudioSource = GetComponent<AudioSource>();
         StartCoroutine(GeneratorAI());
     }
 
@@ -82,6 +84,10 @@ public class Generator : MonoBehaviour
                     {
                         GeneratorEffect.gameObject.SetActive(true);
                         GeneratorEffect.Play();
+                    }
+                    if (mAudioSource != null)
+                    {
+                        mAudioSource.Play();
                     }
                     break;
                 }

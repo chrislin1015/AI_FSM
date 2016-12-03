@@ -156,7 +156,7 @@
 		<Military>1</Military>
 		<AtkType>3</AtkType>
 		<MoveSpeed>0.7</MoveSpeed>
-		<AtkMode>0</AtkMode>
+		<AtkMode>1</AtkMode>
 		<StateAnimation1>IdleState,Dragon_Wait</StateAnimation1>
 		<StateAnimation2>AtkState,Dragon_Attack</StateAnimation2>
 		<StateAnimation3>PrepareAtkState,Dragon_Wait</StateAnimation3>

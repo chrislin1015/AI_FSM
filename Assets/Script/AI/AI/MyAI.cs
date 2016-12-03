@@ -65,7 +65,10 @@ public class MyAI : AI
     {
         if (TargetAI != null)
         {
-            transform.LookAt(TargetAI.transform.position);
+            Vector3 _Dir = TargetAI.transform.position - transform.position;
+            _Dir = Vector3.Lerp(transform.forward, _Dir.normalized, Time.deltaTime * 10.0f);
+            transform.forward = _Dir;
+            //transform.LookAt(TargetAI.transform.position);
         }
     }
 
@@ -231,7 +234,6 @@ public class MyAI : AI
     public void SearchTarget()
     {
         float _Range = float.MaxValue;
-        MyAI _AI = null;
 
         AttTemplate<GlobalEnum.ATK_TYPE> _AtkType = (AttTemplate<GlobalEnum.ATK_TYPE>)GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_TYPE.ToString());
         if (_AtkType == null)
@@ -258,7 +260,6 @@ public class MyAI : AI
 
         if (TargetAI != null)
         {
-            //TargetAI = _AI;
             TargetAI.SetObserver(this);
         }
     }

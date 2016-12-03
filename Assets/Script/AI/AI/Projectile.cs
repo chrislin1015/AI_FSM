@@ -27,12 +27,13 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour 
 {
-    public string mID;
+    //public string mID;
     public GameObject mImpactEffect;
+    public float mSpeed;
     protected MyAI mTargetAI;
     protected MyAI mSourceAI;
     protected int mDamage;
-    protected AIDataCenter.AIData mAIData;
+    //protected AIDataCenter.AIData mAIData;
     protected Vector3 mHitPoint;
 
     // Update is called once per frame
@@ -47,7 +48,7 @@ public class Projectile : MonoBehaviour
 
         Vector3 _Temp = transform.position;
         Vector3 _Dir = _TargetPos - transform.position;
-        transform.position += _Dir.normalized * mAIData.MoveSpeed * Time.deltaTime;
+        transform.position += _Dir.normalized * mSpeed * Time.deltaTime;
         Vector3 _Dir2 = transform.position - _Temp;
         if (_Dir2.magnitude >= _Dir.magnitude)
         {
@@ -61,7 +62,7 @@ public class Projectile : MonoBehaviour
 
     public void Initial(MyAI iSourceAI, MyAI iTargetAI)
     {
-        mAIData = AIDataCenter.Instance.GetData(mID);
+        //mAIData = AIDataCenter.Instance.GetData(mID);
         mSourceAI = iSourceAI;
         mTargetAI = iTargetAI;
         transform.position = iSourceAI.mProjectPoint.position;
