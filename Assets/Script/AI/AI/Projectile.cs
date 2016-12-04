@@ -27,13 +27,11 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour 
 {
-    //public string mID;
     public GameObject mImpactEffect;
     public float mSpeed;
     protected MyAI mTargetAI;
     protected MyAI mSourceAI;
     protected int mDamage;
-    //protected AIDataCenter.AIData mAIData;
     protected Vector3 mHitPoint;
 
     // Update is called once per frame
@@ -62,7 +60,6 @@ public class Projectile : MonoBehaviour
 
     public void Initial(MyAI iSourceAI, MyAI iTargetAI)
     {
-        //mAIData = AIDataCenter.Instance.GetData(mID);
         mSourceAI = iSourceAI;
         mTargetAI = iTargetAI;
         transform.position = iSourceAI.mProjectPoint.position;
@@ -84,6 +81,6 @@ public class Projectile : MonoBehaviour
 
         GameObject _ImpactEffect = Instantiate(mImpactEffect, iHitPoint, Quaternion.FromToRotation(Vector3.up, iImpactNormal)) as GameObject;
         Destroy(gameObject);
-        Destroy(_ImpactEffect, 3.0f);
+        Destroy(_ImpactEffect, 5.0f);
     }
 }

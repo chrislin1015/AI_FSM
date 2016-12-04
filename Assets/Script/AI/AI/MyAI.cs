@@ -70,6 +70,12 @@ public class MyAI : AI
             transform.forward = _Dir;
             //transform.LookAt(TargetAI.transform.position);
         }
+
+        AttTemplate<float> _ATKSpeed = (AttTemplate<float>)GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_SPEED.ToString());
+        if (_ATKSpeed != null)
+        {
+            _ATKSpeed.Current = Math.Max(_ATKSpeed.Current - Time.deltaTime, 0.0f);
+        }
     }
 
     void OnDestroy()

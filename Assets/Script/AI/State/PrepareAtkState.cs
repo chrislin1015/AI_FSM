@@ -34,11 +34,11 @@ public class PrepareAtkState : State
 
     override public void PreUpdate(AI iAI)
     {
-        AttTemplate<float> _Speed = (AttTemplate<float>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_SPEED.ToString());
-        if (_Speed == null)
-            return;
+        //AttTemplate<float> _Speed = (AttTemplate<float>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_SPEED.ToString());
+        //if (_Speed == null)
+        //    return;
 
-        _Speed.Current = _Speed.Max;
+        //_Speed.Current = _Speed.Max;
     }
 
     override public void Update(AI iAI)
@@ -88,10 +88,10 @@ public class PrepareAtkState : State
         }
         else
         {
-            _Speed.Current -= Time.deltaTime;
+            //_Speed.Current -= Time.deltaTime;
             if (_Speed.Current <= 0.0f)
             {
-                _Speed.Current = 0.0f;
+                _Speed.Current = _Speed.Max;
                 return true;
             }
         }
