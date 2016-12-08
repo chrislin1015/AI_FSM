@@ -41,9 +41,6 @@ public class AIDataCenter : object
         public string StateAnimation10;
     }
 
-    /*
-     * 獨體物件
-     */
     static protected AIDataCenter sInstance;
     static public AIDataCenter Instance
     {

@@ -19,9 +19,6 @@ public class StateMachineDataCenter : object
         public string State10ID;
     }
 
-    /*
-     * 獨體物件
-     */
     static protected StateMachineDataCenter sInstance;
     static public StateMachineDataCenter Instance
     {

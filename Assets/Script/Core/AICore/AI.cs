@@ -33,16 +33,6 @@ public class AI : MonoBehaviour
     protected StateMachine MyStateMachine = null;
     protected Dictionary<string, Attribute> Attributes = new Dictionary<string, Attribute>();
 
-    /*public AI(string iID, StateMachine iStateMachine)
-    {
-        MyID = iID;
-        MyStateMachine = iStateMachine;
-        if (MyStateMachine != null)
-        {
-            MyStateMachine.BindAI(this);
-        }
-    }*/
-
     void OnDestroy()
     {
         MyStateMachine = null;

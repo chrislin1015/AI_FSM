@@ -29,28 +29,45 @@ using System;
 
 public class MyAI : AI 
 {
-    protected AIDataCenter.AIData AIData;
-    public AIDataCenter.AIData Data
+    public enum DAMAGE_TYPE
     {
-        get { return AIData; }
+        NORMAL,
+        IN_HIT,
+        FINISH,
+        MAX
     }
 
-    public string InitialStateID;
-    public GameObject Projectile;
+    protected AIDataCenter.AIData mAIData;
+    public AIDataCenter.AIData AIData
+    {
+        get { return mAIData; }
+    }
+
+    public string mInitialStateID;
+    public GameObject mProjectile;
     [HideInInspector]
-    public MyAI TargetAI;
-
-    public List<MyAI> ObserverList = new List<MyAI>();
-    public Rigidbody mRigibody;
-    protected Dictionary<string, string> Animations = new Dictionary<string, string>();
-
+    public MyAI mTargetAI;
     public Transform mProjectPoint;
     public Transform mHitPoint;
+    public Color mRimColor;
+    public float mRimPower;
 
+    protected List<MyAI> mObserverList = new List<MyAI>();
+    protected Rigidbody mRigibody;
+    protected Dictionary<string, string> mAnimations = new Dictionary<string, string>();
+    protected Renderer[] mRenderers;
     protected GlobalEnum.CAMP_TYPE eCameType;
     public GlobalEnum.CAMP_TYPE CampType
     {
         get { return eCameType; }
+    }
+    protected float mHitEffectFactor = 0.0f;
+    protected DAMAGE_TYPE eDamageType = DAMAGE_TYPE.NORMAL;
+
+    void Start()
+    {
+        mRigibody = GetComponent<Rigidbody>();
+        mRenderers = GetComponentsInChildren<Renderer>();
     }
 
     void FixedUpdate()
@@ -63,12 +80,11 @@ public class MyAI : AI
 
     void LateUpdate()
     {
-        if (TargetAI != null)
+        if (mTargetAI != null)
         {
-            Vector3 _Dir = TargetAI.transform.position - transform.position;
+            Vector3 _Dir = mTargetAI.transform.position - transform.position;
             _Dir = Vector3.Lerp(transform.forward, _Dir.normalized, Time.deltaTime * 10.0f);
             transform.forward = _Dir;
-            //transform.LookAt(TargetAI.transform.position);
         }
 
         AttTemplate<float> _ATKSpeed = (AttTemplate<float>)GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_SPEED.ToString());
@@ -76,30 +92,60 @@ public class MyAI : AI
         {
             _ATKSpeed.Current = Math.Max(_ATKSpeed.Current - Time.deltaTime, 0.0f);
         }
+
+        switch (eDamageType)
+        {
+            case DAMAGE_TYPE.NORMAL:
+                mHitEffectFactor = 0.0f;
+                break;
+            case DAMAGE_TYPE.IN_HIT:
+                mHitEffectFactor += Time.deltaTime * 5.0f;
+                mHitEffectFactor = Mathf.Min(mHitEffectFactor, 1.0f);
+                if (mHitEffectFactor >= 1.0f)
+                    eDamageType = DAMAGE_TYPE.FINISH;
+                break;
+            case DAMAGE_TYPE.FINISH:
+                mHitEffectFactor -= Time.deltaTime * 5.0f;
+                mHitEffectFactor = Mathf.Max(mHitEffectFactor, 0.0f);
+                if (mHitEffectFactor <= 0.0f)
+                    eDamageType = DAMAGE_TYPE.NORMAL;
+                break;
+        }
+
+        foreach (Renderer _R in mRenderers)
+        {
+            if (_R != null)
+            {
+                Color _RimColor = Color.Lerp(mRimColor, Color.white, mHitEffectFactor);
+                float _Pow = Mathf.Lerp(mRimPower, 0.5f, mHitEffectFactor);
+                _R.material.SetColor("_RimColor", _RimColor);
+                _R.material.SetFloat("_RimPower", _Pow);
+            }
+        }
     }
 
     void OnDestroy()
     {
-        ObserverList.Clear();
-        ObserverList = null;
+        mObserverList.Clear();
+        mObserverList = null;
 
-        Animations.Clear();
-        Animations = null;
+        mAnimations.Clear();
+        mAnimations = null;
     }
 
     public void Initial(GlobalEnum.CAMP_TYPE iCampType)
     {
         eCameType = iCampType;
 
-        AIData = AIDataCenter.Instance.GetData(MyID);
-        MyStateMachine = StateManager.Instance.GetStateMachine(AIData.StateMachineID);
+        mAIData = AIDataCenter.Instance.GetData(MyID);
+        MyStateMachine = StateManager.Instance.GetStateMachine(mAIData.StateMachineID);
         if (MyStateMachine != null)
         {
             MyStateMachine.BindAI(this);
         }
         CreateAttribute();
         StateMappingAnimation();
-        ChangeState(InitialStateID);
+        ChangeState(mInitialStateID);
     }
 
     void Update()
@@ -164,7 +210,7 @@ public class MyAI : AI
         if (_Separats == null || _Separats.Length <= 1)
             return;
 
-        Animations.Add(_Separats[0], _Separats[1]);
+        mAnimations.Add(_Separats[0], _Separats[1]);
     }
 
     override public void PlayAnimaiton(string iID)
@@ -172,10 +218,10 @@ public class MyAI : AI
         if (Ani == null)
             return;
 
-        if (Animations.ContainsKey(iID) == false)
+        if (mAnimations.ContainsKey(iID) == false)
             return;
 
-        Ani.CrossFade(Animations[iID]);
+        Ani.CrossFade(mAnimations[iID]);
     }
 
     public void SetObserver(MyAI iObserver)
@@ -183,7 +229,7 @@ public class MyAI : AI
         if (iObserver == null)
             return;
 
-        ObserverList.Add(iObserver);
+        mObserverList.Add(iObserver);
     }
 
     public void Damage(int iDamage)
@@ -195,21 +241,29 @@ public class MyAI : AI
         _HP.Current = Mathf.Max(0, _HP.Current - iDamage);
         if (_HP.Current <= 0)
         {
-            foreach (MyAI _Observer in ObserverList)
+            foreach (MyAI _Observer in mObserverList)
             {
-                _Observer.TargetAI = null;
+                _Observer.mTargetAI = null;
             }
 
             ChangeState("DeathState");
         }
+
+        PlayHitEffect();
+    }
+
+    protected void PlayHitEffect()
+    {
+        mHitEffectFactor = 0.0f;
+        eDamageType = DAMAGE_TYPE.IN_HIT;
     }
 
     public void Shoot()
     {
-        if (Projectile == null || mProjectPoint == null)
+        if (mProjectile == null || mProjectPoint == null)
             return;
 
-        GameObject _New = Instantiate(Projectile) as GameObject;
+        GameObject _New = Instantiate(mProjectile) as GameObject;
         if (_New == null)
             return;
 
@@ -217,10 +271,10 @@ public class MyAI : AI
         if (_Proj == null)
             return;
 
-        _Proj.Initial(this, this.TargetAI);
+        _Proj.Initial(this, this.mTargetAI);
     }
 
-    public void AtkTarget(MyAI iTarget, int iDamage)
+    /*public void AtkTarget(MyAI iTarget, int iDamage)
     {
         if (iTarget == null)
             return;
@@ -231,11 +285,11 @@ public class MyAI : AI
         }
         else if (AIData.AtkMode == 1)
         {
-            GameObject _New = Instantiate(Projectile) as GameObject;
+            GameObject _New = Instantiate(mProjectile) as GameObject;
             if (_New == null)
                 return;
         }
-    }
+    }*/
 
     public void SearchTarget()
     {
@@ -253,7 +307,7 @@ public class MyAI : AI
         else
             _CampType = GlobalEnum.CAMP_TYPE.PLAYER;
 
-        TargetAI = null;
+        mTargetAI = null;
         if ((_TargetType & GlobalEnum.ATK_TYPE.ARMY) != 0)
         {
             GetNearestAI(_CampType, GlobalEnum.MILITARY_TYPE.ARMY, ref _Range);
@@ -264,9 +318,9 @@ public class MyAI : AI
             GetNearestAI(_CampType, GlobalEnum.MILITARY_TYPE.AIRFORCE, ref _Range);
         }
 
-        if (TargetAI != null)
+        if (mTargetAI != null)
         {
-            TargetAI.SetObserver(this);
+            mTargetAI.SetObserver(this);
         }
     }
 
@@ -275,8 +329,7 @@ public class MyAI : AI
         List<MyAI> _AIList = AIManager.Instance.GetAIListByMilitary(iCampType, iMilitaryType);
         if (_AIList == null)
             return;
-        
-        //MyAI _Target = null;
+
         foreach (MyAI _Temp in _AIList)
         {
             if (_Temp == null)
@@ -286,10 +339,8 @@ public class MyAI : AI
             if (_V.magnitude <= iDist)
             {
                 iDist = _V.magnitude;
-                TargetAI = _Temp;
+                mTargetAI = _Temp;
             }
         }
-
-        //return _Target;
     }
 }

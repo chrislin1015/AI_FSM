@@ -34,6 +34,11 @@ public class DeathState : State
 
     override public void PreUpdate(AI iAI)
     {
+        MyAI _AI = iAI as MyAI;
+        if (_AI == null)
+            return;
+        
+        AIManager.Instance.RemoveAI(_AI, _AI.CampType);
     }
 
     override public void Update(AI iAI)
@@ -47,7 +52,6 @@ public class DeathState : State
 
         if (_AI.Ani.isPlaying == false)
         {
-            AIManager.Instance.RemoveAI(_AI, _AI.CampType);
             GameObject.Destroy(_AI.gameObject);
         }
     }

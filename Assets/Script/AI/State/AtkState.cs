@@ -38,7 +38,7 @@ public class AtkState : State
         if (_AI == null)
             return;
 
-        if (_AI.TargetAI == null)
+        if (_AI.mTargetAI == null)
             return;
 
         AttTemplate<GlobalEnum.ATK_MODE> _AtkMode = (AttTemplate<GlobalEnum.ATK_MODE>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_MODE.ToString());
@@ -51,7 +51,7 @@ public class AtkState : State
 
         if (_AtkMode.Current == (int)GlobalEnum.ATK_MODE.MELEE)
         {
-            _AI.TargetAI.Damage(_Damage.Current);
+            _AI.mTargetAI.Damage(_Damage.Current);
         }
         else
         {
@@ -70,7 +70,7 @@ public class AtkState : State
 
         if (_AI.Ani.isPlaying == false)
         {
-            if (_AI.TargetAI == null)
+            if (_AI.mTargetAI == null)
             {
                 _AI.ChangeState("IdleState");
             }

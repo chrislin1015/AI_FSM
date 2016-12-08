@@ -78,7 +78,7 @@ public class AIManager : MonoBehaviour
             return;
 
         iAI.Initial(iCampType);
-        GlobalEnum.MILITARY_TYPE _MilitaryType = (GlobalEnum.MILITARY_TYPE)iAI.Data.Military;
+        GlobalEnum.MILITARY_TYPE _MilitaryType = (GlobalEnum.MILITARY_TYPE)iAI.AIData.Military;
 
         if (mAIs.ContainsKey(iCampType))
         {
@@ -120,7 +120,7 @@ public class AIManager : MonoBehaviour
         if (iAI == null)
             return;
 
-        GlobalEnum.MILITARY_TYPE _MilitaryType = (GlobalEnum.MILITARY_TYPE)iAI.Data.Military;
+        GlobalEnum.MILITARY_TYPE _MilitaryType = (GlobalEnum.MILITARY_TYPE)iAI.AIData.Military;
         if (mAIs.ContainsKey(iCampType) &&
             mAIs[iCampType].ContainsKey(_MilitaryType))
         {

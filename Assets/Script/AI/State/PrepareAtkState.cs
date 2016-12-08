@@ -34,11 +34,6 @@ public class PrepareAtkState : State
 
     override public void PreUpdate(AI iAI)
     {
-        //AttTemplate<float> _Speed = (AttTemplate<float>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_SPEED.ToString());
-        //if (_Speed == null)
-        //    return;
-
-        //_Speed.Current = _Speed.Max;
     }
 
     override public void Update(AI iAI)
@@ -50,7 +45,7 @@ public class PrepareAtkState : State
         if (_AI == null)
             return;
 
-        if (_AI.TargetAI == null)
+        if (_AI.mTargetAI == null)
         {
             _AI.ChangeState("IdleState");
         }
@@ -69,10 +64,10 @@ public class PrepareAtkState : State
 
     public bool CheckAtk(MyAI iAI)
     {
-        if (iAI.TargetAI == null)
+        if (iAI.mTargetAI == null)
             return false;
 
-        Vector3 _Dir = iAI.TargetAI.transform.position - iAI.transform.position;
+        Vector3 _Dir = iAI.mTargetAI.transform.position - iAI.transform.position;
 
         AttTemplate<float> _Speed = (AttTemplate<float>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.ATK_SPEED.ToString());
         if (_Speed == null)
@@ -88,7 +83,6 @@ public class PrepareAtkState : State
         }
         else
         {
-            //_Speed.Current -= Time.deltaTime;
             if (_Speed.Current <= 0.0f)
             {
                 _Speed.Current = _Speed.Max;

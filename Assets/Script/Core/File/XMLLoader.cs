@@ -26,32 +26,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/*
- * XML的檔案載入通用樣板類別
- * @author Chris
- * @version 1.0.0
- * @since GameCore 0.1.5
- * @date 2014.08.04
- */
 public class XMLLoader<T> : object
 {
-    /*
-     *
-     */
     protected List<T> m_DataList;
     public List<T> DataList
     {
         get { return m_DataList; }
     }
-    
-    /*
-     * 是否初始化完成
-     */
     protected bool m_IsInitial = false;
-    /*
-     * 檔案路徑
-     */
-    //protected string m_FilePath = "";
     
     public XMLLoader()
     {
@@ -83,23 +65,6 @@ public class XMLLoader<T> : object
             m_DataList = XMLSaveLoad<List<T>>.LoadXmlFromResources(iFilePath);
         }
         m_IsInitial = true;
-
-
-        /*if (Application.isEditor && Application.isPlaying == false)
-        {
-            if (iIsContent)
-            {
-                Parse(iFilePath);
-            }
-            else
-            {
-                LoadXML(iFilePath);
-            }
-        }
-        else
-        {
-            
-        }*/
     }
 
     public bool IsInitial()

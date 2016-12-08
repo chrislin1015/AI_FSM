@@ -46,7 +46,7 @@ public class IdleState : State
             return;
         
         _AI.SearchTarget();
-        if (_AI.TargetAI != null)
+        if (_AI.mTargetAI != null)
         {
             _AI.ChangeState("MoveState");
         }

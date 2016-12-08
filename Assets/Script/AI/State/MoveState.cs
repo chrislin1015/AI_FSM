@@ -45,14 +45,14 @@ public class MoveState : State
         if (_AI == null)
             return;
 
-        if (_AI.TargetAI == null)
+        if (_AI.mTargetAI == null)
         {
             _AI.ChangeState("IdleState");
         }
         else
         {
             _AI.SearchTarget();
-            if (_AI.TargetAI != null)
+            if (_AI.mTargetAI != null)
             {
                 if (MoveToTarget(_AI))
                 {
@@ -68,10 +68,10 @@ public class MoveState : State
 
     public bool MoveToTarget(MyAI iAI)
     {
-        if (iAI.TargetAI == null)
+        if (iAI.mTargetAI == null)
             return false;
 
-        Vector3 _Dir = iAI.TargetAI.transform.position - iAI.transform.position;
+        Vector3 _Dir = iAI.mTargetAI.transform.position - iAI.transform.position;
 
         AttTemplate<float> _Speed = (AttTemplate<float>)iAI.GetAttribute(GlobalEnum.ATTRIBUTE_TYPE.MOVE_SPEED.ToString());
         if (_Speed == null)
